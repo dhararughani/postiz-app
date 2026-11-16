@@ -21,3 +21,6 @@ dist
 .git
 .github
 reports
+.profile
+local-login.txt
+Postiz.pyw

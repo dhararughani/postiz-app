@@ -94,6 +94,39 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL('/auth/login', nextUrl.href));
   }
 
+  // Personal local install: no login page. Sign the single local user in
+  // automatically (AUTO_LOGIN_* in docker-compose.yaml). Safe only because the
+  // app port is bound to 127.0.0.1; remove these env vars to get login back.
+  if (!authCookie && process.env.AUTO_LOGIN_EMAIL) {
+    try {
+      const login = await fetch(
+        `${process.env.BACKEND_INTERNAL_URL}/auth/login`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: process.env.AUTO_LOGIN_EMAIL,
+            password: process.env.AUTO_LOGIN_PASSWORD,
+            provider: 'LOCAL',
+          }),
+        }
+      );
+      const cookies = login.headers.getSetCookie();
+      if (login.ok && cookies.length) {
+        const res = NextResponse.redirect(
+          new URL(
+            nextUrl.pathname.startsWith('/auth') ? '/' : nextUrl.href,
+            nextUrl.href
+          )
+        );
+        cookies.forEach((c) => res.headers.append('set-cookie', c));
+        return res;
+      }
+    } catch (err) {
+      console.log('auto login failed', err);
+    }
+  }
+
   const org = nextUrl.searchParams.get('org');
   const url = new URL(nextUrl).search;
   if (!nextUrl.pathname.startsWith('/auth') && !authCookie) {

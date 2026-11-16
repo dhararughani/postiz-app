@@ -9,7 +9,6 @@ import { AuthProviderManager } from '@gitroom/backend/services/auth/providers/pr
 import dayjs from 'dayjs';
 import { ForgotReturnPasswordDto } from '@gitroom/nestjs-libraries/dtos/auth/forgot-return.password.dto';
 import { EmailService } from '@gitroom/nestjs-libraries/services/email.service';
-import { NewsletterService } from '@gitroom/nestjs-libraries/newsletter/newsletter.service';
 import { AttributionService } from '@gitroom/nestjs-libraries/services/attribution/attribution.service';
 
 @Injectable()
@@ -206,7 +205,6 @@ export class AuthService {
       .lead(create.users[0].user, body.attribution)
       .catch((err) => {});
 
-    await NewsletterService.register(providerUser.email);
 
     try {
       if (providerInstance?.postRegistration) {
@@ -288,7 +286,6 @@ export class AuthService {
       await this._userService.activateUser(user.id);
       user.activated = true;
       this._track('register', user.email, tracking).catch((err) => {});
-      await NewsletterService.register(user.email);
       return this.jwt(user as any);
     }
 
