@@ -467,7 +467,7 @@ export class IntegrationService {
     return { success: true };
   }
 
-  // Connect links (public API): the link opens a Postiz page that explains what
+  // Connect links (public API): the link opens a PostUp page that explains what
   // connecting the channel means, and only from there the person is sent to
   // the platform. Like the invite links of the dashboard, only providers that
   // connect with a plain redirect can be linked.

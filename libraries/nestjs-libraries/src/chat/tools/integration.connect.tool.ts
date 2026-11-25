@@ -28,11 +28,11 @@ export class IntegrationConnectTool implements AgentToolInterface {
         },
       },
       description: `
-Use this when the user wants to add (connect) a new social media channel to Postiz: an account, a profile, a page or a business page, for example a Facebook Page, a LinkedIn Page or Google My Business.
-It returns the URL of a Postiz page. The user opens it in a browser, reads what connecting the channel means, and continues to the platform to sign in and approve the access.
+Use this when the user wants to add (connect) a new social media channel to PostUp: an account, a profile, a page or a business page, for example a Facebook Page, a LinkedIn Page or Google My Business.
+It returns the URL of a PostUp page. The user opens it in a browser, reads what connecting the channel means, and continues to the platform to sign in and approve the access.
 The channel is added only after the user completes that page, and is listed with the other integrations afterwards. The URL works for one hour.
-With a redirectUrl the browser is sent to that address once the channel is connected, and the Postiz page names that website before the user continues. Without it a user who is signed in to Postiz lands on their calendar, and anyone else sees a confirmation that the channel is connected.
-It cannot reconnect or refresh an existing channel. Platforms that need an API key, an instance URL, a wallet or the browser extension are added from the Postiz dashboard instead.
+With a redirectUrl the browser is sent to that address once the channel is connected, and the PostUp page names that website before the user continues. Without it a user who is signed in to PostUp lands on their calendar, and anyone else sees a confirmation that the channel is connected.
+It cannot reconnect or refresh an existing channel. Platforms that need an API key, an instance URL, a wallet or the browser extension are added from the PostUp dashboard instead.
 If the URL cannot be created, the result contains output.errors explaining why.
 `,
       inputSchema: z.object({

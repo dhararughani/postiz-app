@@ -406,7 +406,7 @@ export class PublicIntegrationsController {
     }
   }
 
-  // Unlike /social/:integration, the URL is a Postiz page: the person reads
+  // Unlike /social/:integration, the URL is a PostUp page: the person reads
   // what connecting the channel means before they are sent to the platform.
   // The channel limit is checked again when they continue from that page
   @Post('/integrations/connect')
